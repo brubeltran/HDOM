@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diagnóstico Executivo | HDOM Summit</title>
+<meta name="description" content="Descubra o perfil da sua empresa dentro da cadeia da madeira em 2 minutos e receba um diagnóstico personalizado do HDOM Summit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- ===== CONFIGURAÇÃO: substitua pelos IDs reais ===== -->
+<script>
+  window.HDOM = {
+    webhookUrl: "",            // URL do webhook (RD Station, HubSpot, Zapier, CRM...)
+    siteUrl: "https://hdomsummit.com.br"
+  };
+  window.dataLayer = window.dataLayer || [];
+</script>
+<!-- Google Tag Manager: cole aqui o snippet do GTM (GTM-XXXXXXX) -->
+<!-- Meta Pixel: cole aqui o snippet do Pixel (fbq('init','SEU_PIXEL_ID')) -->
+
+<style>
+:root{
+  --verde-escuro:#114232; --verde:#2F6E49; --bege:#F6F4EE; --branco:#FFFFFF;
+  --texto:#1d2b24; --suave:#5b6b63; --linha:#dfdccf; --erro:#b3261e;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bege) repeating-radial-gradient(circle at 100% 100%,transparent 0 26px,rgba(17,66,50,.045) 26px 28px);background-attachment:fixed;color:var(--texto);line-height:1.55;min-height:100vh;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:Montserrat,Inter,sans-serif;font-weight:800;line-height:1.2;color:var(--verde-escuro)}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--verde);outline-offset:3px}
+
+/* Cabeçalho florestal */
+.hero{position:relative;color:var(--branco);text-align:center;padding:30px 20px 130px;
+  background:radial-gradient(circle at 82% 18%,rgba(246,244,238,.16),transparent 38%),linear-gradient(180deg,#0a2a1f 0%,#114232 55%,#1c5a3d 100%);overflow:hidden}
+.hero .logo-img{display:block;height:54px;width:auto;margin:0 auto 18px}
+.hero .logo-txt{display:none;font-family:Montserrat,sans-serif;font-weight:800;font-size:1.6rem;letter-spacing:.04em;margin-bottom:18px}
+.badge{display:inline-block;border:1px solid rgba(246,244,238,.4);border-radius:99px;padding:6px 16px;font-size:.82rem;font-weight:500;margin-bottom:12px}
+.hero .tag{font-family:Montserrat,sans-serif;font-weight:700;font-size:clamp(1rem,3.6vw,1.3rem);max-width:30ch;margin:0 auto;opacity:.95}
+.trees{position:absolute;left:0;right:0;bottom:-1px;height:110px;
+  background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='80' viewBox='0 0 60 80'><path fill='%23F6F4EE' d='M30 0 44 24H37L50 46H41L56 70H4L19 46H10L23 24H16Z'/><rect x='27' y='68' width='6' height='12' fill='%23F6F4EE'/><rect y='76' width='60' height='4' fill='%23F6F4EE'/></svg>") repeat-x left bottom/auto 74px,url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='80' viewBox='0 0 60 80'><path fill='%231d5a3c' d='M30 0 44 24H37L50 46H41L56 70H4L19 46H10L23 24H16Z'/><rect x='27' y='68' width='6' height='12' fill='%231d5a3c'/></svg>") repeat-x 26px bottom/auto 96px,url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='80' viewBox='0 0 60 80'><path fill='%232F6E49' d='M30 0 44 24H37L50 46H41L56 70H4L19 46H10L23 24H16Z'/><rect x='27' y='68' width='6' height='12' fill='%232F6E49'/></svg>") repeat-x 8px bottom/auto 110px}
+
+/* Barra de progresso (sempre visível) */
+.progress{position:sticky;top:0;z-index:10;background:var(--branco);border-bottom:1px solid var(--linha);padding:10px 20px}
+.progress-in{max-width:720px;margin:auto;display:flex;align-items:center;gap:12px;font-size:.8rem;color:var(--suave);font-weight:500}
+.track{flex:1;height:8px;background:#e7e4d8;border-radius:99px;position:relative}
+.bar{height:100%;width:0;background:linear-gradient(90deg,var(--verde),var(--verde-escuro));border-radius:99px;position:relative;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.bar::after{content:'';position:absolute;right:-10px;bottom:0;width:22px;height:26px;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='26' viewBox='0 0 60 80'><path fill='%232F6E49' d='M30 0 44 24H37L50 46H41L56 70H4L19 46H10L23 24H16Z'/><rect x='27' y='68' width='6' height='12' fill='%23114232'/></svg>") center/contain no-repeat}
+#pct{min-width:34px;text-align:right;font-variant-numeric:tabular-nums}
+
+main{max-width:720px;margin:auto;padding:28px 20px 64px}
+.step{display:none}
+.step.active{display:block;animation:in .35s ease}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.step.active{animation:none}.bar{transition:none}.opt{transition:none}}
+
+h1{font-size:clamp(1.6rem,5.5vw,2.4rem);margin-bottom:14px}
+h2{font-size:clamp(1.35rem,4.5vw,1.8rem);margin-bottom:22px}
+.lead{color:var(--suave);font-size:1.05rem;margin-bottom:28px;max-width:56ch}
+.count{font-size:.85rem;color:var(--suave);margin-bottom:8px;font-weight:500}
+
+.btn{display:inline-block;background:var(--verde-escuro);color:var(--branco);border:0;border-radius:12px;padding:16px 28px;font-weight:600;font-size:1rem;text-decoration:none;transition:transform .18s,background .18s}
+.btn:hover{background:var(--verde);transform:scale(1.03)}
+.btn:disabled{opacity:.6;cursor:wait;transform:none}
+
+/* Opções */
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.opt{display:flex;align-items:center;gap:12px;background:var(--branco);border:2px solid var(--linha);border-radius:12px;padding:16px;text-align:left;color:var(--texto);font-weight:500;transition:transform .18s,border-color .18s,background .18s}
+.opt:hover{transform:scale(1.03);border-color:var(--verde)}
+.opt.sel{background:var(--verde-escuro);border-color:var(--verde-escuro);color:var(--branco)}
+.opt .ic{font-size:1.4rem;line-height:1;flex:none}
+.hint{color:var(--suave);margin:-12px 0 18px;font-size:.9rem}
+.back{background:none;border:0;color:var(--suave);margin-top:22px;font-size:.9rem;text-decoration:underline}
+
+/* Resultado */
+.card{background:var(--branco);border:1px solid var(--linha);border-radius:12px;padding:28px}
+.perfil-tag{display:inline-block;background:var(--verde);color:var(--branco);border-radius:99px;padding:5px 14px;font-size:.82rem;font-weight:600;margin-bottom:14px}
+.card p{color:var(--suave);margin:10px 0 18px}
+.checks{list-style:none;margin:0 0 26px;display:grid;gap:10px}
+.checks li{display:flex;gap:10px;font-weight:500}
+.checks li::before{content:"✔";color:var(--verde);font-weight:700}
+
+/* Formulário */
+form{display:grid;gap:16px}
+label{display:grid;gap:6px;font-weight:600;font-size:.9rem}
+input[type=text],input[type=email],input[type=tel]{width:100%;padding:14px;border:2px solid var(--linha);border-radius:10px;font:inherit;background:var(--branco)}
+select{width:100%;padding:14px;border:2px solid var(--linha);border-radius:10px;font:inherit;background:var(--branco)}
+select:focus,input:focus{border-color:var(--verde);outline:none;box-shadow:0 0 0 3px rgba(47,110,73,.2)}
+input.err{border-color:var(--erro)}
+.err-msg{color:var(--erro);font-size:.8rem;font-weight:400;display:none}
+input.err + .err-msg{display:block}
+.check{display:flex;flex-direction:row;gap:10px;align-items:flex-start;font-weight:400;font-size:.9rem;color:var(--suave)}
+.check input{margin-top:4px;width:18px;height:18px;accent-color:var(--verde)}
+.form-erro{color:var(--erro);font-size:.9rem;display:none}
+
+.final{text-align:center;padding-top:20px}
+.final .ok{width:72px;height:72px;border-radius:50%;background:var(--verde);color:#fff;display:grid;place-items:center;font-size:2rem;margin:0 auto 20px}
+.final .lead{margin-left:auto;margin-right:auto}
+
+footer{text-align:center;color:var(--suave);font-size:.78rem;padding:0 20px 32px}
+
+/* ===== Identidade HDOM (extraída do site) ===== */
+:root{--verde-escuro:#341837;--verde:#A02694;--magenta:#DD4ED8;--bege:#FFFFFF;--texto:#2a1a2c;--suave:#6b5a6d;--linha:#e6dbe7}
+body{font-family:Montserrat,system-ui,sans-serif;background:#fff}
+h1,h2,h3{font-weight:700;color:var(--verde-escuro)}
+input,select,button{font-family:inherit}
+.hero{padding:34px 20px 52px;background:linear-gradient(180deg,#210B22 0%,#341837 45%,#341837 100%)}
+.hero .logo-img{height:72px;margin-bottom:22px}
+.badge{border-color:rgba(255,255,255,.35);font-weight:500;letter-spacing:.02em}
+.slogan{font-weight:300;font-size:clamp(1.5rem,6.4vw,2.3rem);line-height:1.25;margin-top:10px}
+.slogan strong{font-weight:700}
+.progress{background:#fff;border-bottom:1px solid var(--linha)}
+.track{background:#eadcea}
+.bar{background:linear-gradient(90deg,#A02694,#DD4ED8)}
+.bar::after{content:'';position:absolute;right:-7px;top:-3px;bottom:auto;width:14px;height:14px;background:#DD4ED8;border:2px solid #fff;border-radius:50%;box-shadow:0 0 0 1px #A02694}
+.btn{background:linear-gradient(90deg,#A02694,#DD4ED8);border-radius:999px;text-transform:uppercase;letter-spacing:.04em;font-weight:600;padding:16px 34px}
+.btn:hover{background:linear-gradient(90deg,#8f2185,#cc43c7);transform:scale(1.03)}
+.opt{border-radius:14px;border-color:var(--linha);font-weight:500}
+.opt:hover{border-color:var(--verde)}
+.opt.sel{background:var(--verde-escuro);border-color:var(--verde);color:#fff}
+.perfil-tag{background:linear-gradient(90deg,#A02694,#DD4ED8)}
+.checks li::before{color:var(--verde)}
+.card{border-radius:16px;box-shadow:0 8px 30px rgba(52,24,55,.08)}
+input:focus,select:focus{border-color:var(--verde);box-shadow:0 0 0 3px rgba(160,38,148,.2)}
+.check input{accent-color:var(--verde)}
+.final .ok{background:linear-gradient(135deg,#A02694,#DD4ED8)}
+:focus-visible{outline-color:var(--verde)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <img class="logo-img" src="https://hdomsummit.com.br/wp-content/uploads/2026/04/HDOM-logo-branca-1.png" alt="HDOM Summit" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+  <div class="logo-txt">HDOM SUMMIT</div>
+  <div class="badge">7ª edição · 10 e 11 de novembro de 2026 · Espaço Apas, São Paulo</div>
+  <p class="slogan">Líderes que transformam,<br><strong>conexões</strong> que impulsionam</p>
+</header>
+
+<div class="progress" aria-label="Progresso do diagnóstico">
+  <div class="progress-in">
+    <span id="stepLabel">Início</span>
+    <div class="track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="track"><div class="bar" id="bar"></div></div>
+    <span id="pct">0%</span>
+  </div>
+</div>
+
+<main>
+  <!-- Início -->
+  <section class="step active" data-step="0">
+    <h1>Descubra qual é o perfil da sua empresa dentro da cadeia da madeira em apenas 2 minutos.</h1>
+    <p class="lead">Responda algumas perguntas e receba gratuitamente um diagnóstico personalizado com recomendações exclusivas do HDOM Summit.</p>
+    <button class="btn" id="start">Começar Diagnóstico</button>
+  </section>
+
+  <!-- Etapas 1–5 geradas via JS -->
+  <div id="quiz"></div>
+
+  <!-- Resultado -->
+  <section class="step" data-step="6">
+    <div class="card">
+      <span class="perfil-tag">Seu resultado</span>
+      <h2 id="perfilTitulo" style="margin-bottom:0">Perfil: Empresa em Expansão</h2>
+      <p id="perfilTexto"></p>
+      <h3 style="font-size:1.05rem;margin-bottom:14px">No HDOM Summit você encontrará:</h3>
+      <ul class="checks" id="perfilLista"></ul>
+      <button class="btn" id="verForm">Quero receber meu diagnóstico completo</button>
+    </div>
+  </section>
+
+  <!-- Formulário -->
+  <section class="step" data-step="7">
+    <h2>Para onde enviamos seu diagnóstico?</h2>
+    <form id="leadForm" novalidate>
+      <label>Nome completo
+        <input type="text" name="nome" autocomplete="name" required>
+        <span class="err-msg">Informe seu nome completo.</span>
+      </label>
+      <label>Empresa
+        <input type="text" name="empresa" autocomplete="organization" required>
+        <span class="err-msg">Informe o nome da empresa.</span>
+      </label>
+      <label>Cargo
+        <input type="text" name="cargo" autocomplete="organization-title" required>
+        <span class="err-msg">Informe seu cargo.</span>
+      </label>
+      <label>E-mail
+        <input type="email" name="email" autocomplete="email" required>
+        <span class="err-msg">Informe um e-mail válido.</span>
+      </label>
+      <label>WhatsApp
+        <input type="tel" name="whatsapp" autocomplete="tel" placeholder="(11) 99999-9999" required>
+        <span class="err-msg">Informe um WhatsApp com DDD.</span>
+      </label>
+      <label>Já participou do HDOM Summit?
+        <select name="participou">
+          <option>Nunca participei</option><option>Participei de 1 edição</option><option>Participei de 2 ou mais edições</option>
+        </select>
+      </label>
+      <label class="check"><input type="checkbox" name="optin" checked> Desejo receber conteúdos exclusivos do HDOM Summit.</label>
+      <p class="form-erro" id="formErro">Não foi possível enviar agora. Tente novamente em instantes.</p>
+      <button type="submit" class="btn" id="enviar">Receber Diagnóstico</button>
+    </form>
+  </section>
+
+  <!-- Obrigado -->
+  <section class="step final" data-step="8">
+    <div class="ok" aria-hidden="true">✓</div>
+    <h2>Obrigado!</h2>
+    <p class="lead">Seu diagnóstico foi enviado para seu e-mail.<br>Enquanto isso, conheça tudo que o HDOM Summit preparou para a edição deste ano.</p>
+    <p class="lead" style="font-size:.95rem"><strong>7º HDOM Summit</strong> · 10 e 11 de novembro de 2026 · Espaço Apas, São Paulo<br>Painéis, conversas executivas, 4º Prêmio HDOM e networking com o setor florestal.</p>
+    <a class="btn" id="goSite" href="https://hdomsummit.com.br">Conhecer o Evento</a>
+    <p style="margin-top:18px"><a href="https://shop.expoticket.com.br/malinovski/HDOM26/prelogin?idioma=pt&amp;cdref=MDA%3D&amp;form=E" target="_blank" rel="noopener" onclick="dataLayer.push({event:'click_cta',cta:'garantir_ingresso'})" style="color:var(--verde);font-weight:600">Garantir meu ingresso</a></p>
+  </section>
+</main>
+
+<footer>© HDOM Summit · Realização Malinovski · Seus dados são usados apenas para o envio do diagnóstico e comunicações do evento.</footer>
+
+<script>
+(function(){
+  /* ---------- Tracking ---------- */
+  function track(gtmEvent, fbEvent, params, fbCustom){
+    params = params || {};
+    window.dataLayer.push(Object.assign({event: gtmEvent}, params));
+    if (typeof window.fbq === "function" && fbEvent){
+      fbq(fbCustom ? "trackCustom" : "track", fbEvent, params);
+    }
+  }
+
+  /* ---------- Perguntas ---------- */
+  var Q = [
+    {k:"segmento", ev:"diagnostico_segmento", fb:"Diagnostico_Segmento", t:"Qual segmento representa melhor sua atuação no setor florestal?", o:[
+      ["🌲","Produção florestal"],["📄","Celulose e papel"],["🪵","Serrados e painéis"],["🔥","Carvão vegetal e siderurgia"],
+      ["🌱","Biomassa e energia"],["⚙️","Máquinas e serviços florestais"],["🚛","Logística"],["💻","Tecnologia e consultoria"],
+      ["💼","Investidor / Financeiro"],["🏛️","Associação / Governo"]]},
+    {k:"cargo", ev:"diagnostico_cargo", fb:"Diagnostico_Cargo", t:"Qual é o seu nível de decisão?", o:
+      ["Presidente / CEO","VP / Diretor","Gerente","Coordenador / Supervisor","Analista","Consultor","Investidor"].map(function(x){return [null,x]})},
+    {k:"temas", ev:"diagnostico_temas", fb:"Diagnostico_Temas", multi:2, t:"Quais temas da programação do 7º HDOM Summit mais interessam a você?", o:
+      ["HDOM Forest Outlook 2027","China e mercado externo","Geopolítica e cenário pós-eleições","Custos e competitividade","Carvão vegetal e aço",
+       "Biotecnologia e genética florestal","IA para negócios","Operação do futuro e tecnologia","Grandes investimentos (Projeto Sucuriú)"].map(function(x){return [null,x]})},
+    {k:"expectativa", ev:"diagnostico_expectativa", fb:"Diagnostico_Expectativa", t:"O que você mais espera de um evento como o HDOM?", o:[
+      ["🤝","Networking com executivos"],["🏭","Conhecer fornecedores e soluções"],["💼","Gerar negócios e executive meetings"],
+      ["📈","Atualização sobre o mercado"],["🏆","Visibilidade e reconhecimento (Prêmio HDOM)"]]},
+    {k:"participacao", ev:"diagnostico_participacao", fb:"Diagnostico_Participacao", t:"Como pretende participar do HDOM Summit, em 10 e 11 de novembro?", o:
+      ["Já tenho meu ingresso","Quero garantir o meu ingresso","Quero levar minha equipe","Quero patrocinar ou expor","Ainda vou avaliar"].map(function(x){return [null,x]})}
+  ];
+
+  /* ---------- Perfis ---------- */
+  var PERFIS = {
+    estrategista:{n:"Estrategista de Mercado", d:"Você acompanha o cenário do setor para antecipar movimentos de mercado, comércio exterior e investimentos.",
+      l:["HDOM Forest Outlook 2027 – o jogo mudou","painel \"China em foco: competitividade e novos desafios\"","geopolítica, agronegócio e o Brasil depois das urnas","conversa sobre o Projeto Sucuriú, com a Arauco","executive meetings e coffee breaks com network"]},
+    operador:{n:"Líder de Operação", d:"Sua prioridade é competitividade: custos, eficiência, tecnologia e produtividade na floresta e na indústria.",
+      l:["visão Klabin e visão Suzano sobre custos e competitividade","painel \"A operação do futuro\"","biotecnologia e avanços em produtividade florestal","IA: impactos e oportunidades para os negócios","fornecedores de máquinas, tecnologia e serviços"]},
+    investidor:{n:"Investidor Estratégico", d:"Você observa o setor pela ótica do capital: ativos, tendências e líderes com potencial de retorno.",
+      l:["HDOM Forest Outlook 2027 – o jogo mudou","visão de CEOs e diretores das maiores empresas do setor","análise econômica e política pós-eleições","coquetel executivo e executive meetings","conexão com operadores florestais"]},
+    parceiro:{n:"Parceiro Estratégico", d:"Sua empresa atende o setor florestal e quer relacionamento direto com quem decide investimentos e compras.",
+      l:["mais de 1.800 tomadores de decisão reunidos em 6 edições","executive meetings, coffee breaks e coquetel com network","painel sobre a operação do futuro e tecnologia","visibilidade entre patrocinadores e apoiadores","cotas de patrocínio com a equipe HDOM"]},
+    articulador:{n:"Articulador Setorial", d:"Sua atuação fortalece o setor florestal por meio de representação, políticas e desenvolvimento institucional.",
+      l:["debates sobre geopolítica e o futuro do agronegócio","4º Prêmio HDOM, com Destaque Institucional","conexão com empresas e lideranças do setor","painéis sobre competitividade e mercado","networking executivo"]}
+  };
+  var FORN = ["Máquinas e serviços florestais","Logística","Tecnologia e consultoria"];
+  var T_MERCADO = ["HDOM Forest Outlook 2027","China e mercado externo","Geopolítica e cenário pós-eleições","Grandes investimentos (Projeto Sucuriú)"];
+
+  function perfil(a){
+    if (a.segmento === "Investidor / Financeiro") return "investidor";
+    if (a.participacao === "Quero patrocinar ou expor" || FORN.indexOf(a.segmento) > -1) return "parceiro";
+    if (a.segmento === "Associação / Governo") return "articulador";
+    var m = (a.temas||[]).filter(function(t){ return T_MERCADO.indexOf(t) > -1 }).length;
+    var o = (a.temas||[]).length - m;
+    if (m > o) return "estrategista";
+    if (o > m) return "operador";
+    return a.expectativa === "Conhecer fornecedores e soluções" ? "operador" : "estrategista";
+  }
+
+  /* Pontuação do lead (0–8) enviada ao CRM */
+  var P_CARGO = {"Presidente / CEO":3,"VP / Diretor":3,"Investidor":3,"Gerente":2,"Coordenador / Supervisor":1,"Consultor":1,"Analista":0};
+  var P_PART = {"Quero garantir o meu ingresso":3,"Quero levar minha equipe":3,"Quero patrocinar ou expor":3,"Ainda vou avaliar":1,"Já tenho meu ingresso":1};
+  var P_EXP = {"Gerar negócios e executive meetings":2,"Conhecer fornecedores e soluções":2};
+  function score(a){
+    var t = (P_CARGO[a.cargo]||0) + (P_PART[a.participacao]||0) + (P_EXP[a.expectativa]||1);
+    return {pontos:t, temperatura: t>=6 ? "quente" : t>=4 ? "morno" : "frio"};
+  }
+
+  /* ---------- Estado ---------- */
+  var answers = {}, current = 0, perfilKey = "";
+  var LABELS = ["Início","Pergunta 1 de 5","Pergunta 2 de 5","Pergunta 3 de 5","Pergunta 4 de 5","Pergunta 5 de 5","Resultado","Cadastro","Concluído"];
+  var quiz = document.getElementById("quiz");
+
+  Q.forEach(function(q,i){
+    var s = document.createElement("section");
+    s.className = "step"; s.dataset.step = i+1;
+    var h = '<p class="count">Etapa '+(i+1)+' de 5</p><h2>'+q.t+'</h2>'+(q.multi?'<p class="hint">Escolha até '+q.multi+' opções.</p>':'')+'<div class="opts">';
+    q.o.forEach(function(o){
+      h += '<button class="opt" type="button" data-v="'+o[1]+'">'+(o[0]?'<span class="ic" aria-hidden="true">'+o[0]+'</span>':'')+'<span>'+o[1]+'</span></button>';
+    });
+    h += '</div>' + (q.multi?'<button class="btn cont" type="button" disabled style="margin-top:20px">Continuar</button>':'') + (i>0 ? '<div><button class="back" type="button">← Voltar</button></div>' : '');
+    s.innerHTML = h;
+    quiz.appendChild(s);
+
+    var sel = [], cont = s.querySelector(".cont");
+    function advance(){
+      answers[q.k] = q.multi ? sel.slice() : sel[0];
+      var pr = {resposta:String(answers[q.k]), etapa:i+1};
+      track(q.ev, q.fb, pr, true);
+      track("quiz_progress", null, pr);
+      setTimeout(function(){ i < 4 ? go(i+2) : showResult(); }, 260);
+    }
+    s.querySelectorAll(".opt").forEach(function(b){
+      b.addEventListener("click", function(){
+        var v = b.dataset.v;
+        if (q.multi){
+          var idx = sel.indexOf(v);
+          if (idx > -1){ sel.splice(idx,1); b.classList.remove("sel"); }
+          else {
+            if (sel.length >= q.multi){
+              var old = sel.shift();
+              s.querySelectorAll(".opt").forEach(function(x){ if (x.dataset.v === old) x.classList.remove("sel"); });
+            }
+            sel.push(v); b.classList.add("sel");
+          }
+          cont.disabled = !sel.length;
+        } else {
+          s.querySelectorAll(".opt").forEach(function(x){x.classList.remove("sel")});
+          b.classList.add("sel"); sel = [v]; advance();
+        }
+      });
+    });
+    if (cont) cont.addEventListener("click", advance);
+    var back = s.querySelector(".back");
+    if (back) back.addEventListener("click", function(){ go(i); });
+  });
+
+  function go(n){
+    current = n;
+    document.querySelectorAll(".step").forEach(function(s){ s.classList.toggle("active", +s.dataset.step === n); });
+    var pct = n===0 ? 0 : n<=5 ? (n-1)*20 : 100;
+    if (n>=1 && n<=5) pct = (n-1)*20;      // barra reflete etapas concluídas
+    if (n>=6) pct = 100;
+    document.getElementById("bar").style.width = pct+"%";
+    document.getElementById("pct").textContent = pct+"%";
+    document.getElementById("track").setAttribute("aria-valuenow", pct);
+    document.getElementById("stepLabel").textContent = LABELS[n];
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+
+  /* Barra: 20/40/60/80/100% conforme o especificado (etapa respondida) */
+  function setPct(p){
+    document.getElementById("bar").style.width = p+"%";
+    document.getElementById("pct").textContent = p+"%";
+    document.getElementById("track").setAttribute("aria-valuenow", p);
+  }
+  var _go = go;
+  go = function(n){ _go(n); if(n>=1&&n<=5) setPct(n*20-20); };
+  // Ao responder etapa i, mostra imediatamente (i+1)*20% antes de avançar
+  quiz.addEventListener("click", function(e){
+    if (e.target.closest(".opt")) setPct((current)*20);
+  });
+
+  function showResult(){
+    perfilKey = perfil(answers);
+    var p = PERFIS[perfilKey];
+    document.getElementById("perfilTitulo").textContent = "Perfil: " + p.n;
+    document.getElementById("perfilTexto").textContent = p.d;
+    document.getElementById("perfilLista").innerHTML = p.l.map(function(x){return "<li>"+x+"</li>"}).join("");
+    go(6); setPct(100);
+    track("quiz_completed", "Diagnostico_Resultado", {perfil:p.n}, true);
+  }
+
+  /* ---------- Eventos de início / navegação ---------- */
+  document.getElementById("start").addEventListener("click", function(){
+    track("quiz_start", "Diagnostico_Start", {}, true);
+    window.dataLayer.push({event:"diagnostico_start"});
+    go(1);
+  });
+  document.getElementById("verForm").addEventListener("click", function(){
+    track("click_cta", null, {cta:"diagnostico_completo"});
+    window.dataLayer.push({event:"diagnostico_resultado"});
+    go(7);
+  });
+
+  /* ---------- Formulário ---------- */
+  var form = document.getElementById("leadForm");
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var ok = true;
+    form.querySelectorAll("input[required]").forEach(function(i){
+      var v = i.value.trim(), bad = !v;
+      if (i.type==="email") bad = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+      if (i.type==="tel") bad = v.replace(/\D/g,"").length < 10;
+      i.classList.toggle("err", bad);
+      if (bad) ok = false;
+    });
+    if (!ok) return;
+
+    var fd = new FormData(form);
+    var payload = {
+      nome:fd.get("nome"), empresa:fd.get("empresa"), cargo:fd.get("cargo"),
+      email:fd.get("email"), whatsapp:fd.get("whatsapp"), optin: !!fd.get("optin"),
+      segmento:answers.segmento, funcao:answers.cargo, temas:[].concat(answers.temas).join(" | "), expectativa:answers.expectativa,
+      participacao_prevista:answers.participacao, participou_hdom:fd.get("participou"), lead_pontos:score(answers).pontos, lead_temperatura:score(answers).temperatura,
+      perfil:PERFIS[perfilKey].n, origem:location.href, data:new Date().toISOString()
+    };
+    var btn = document.getElementById("enviar");
+    btn.disabled = true; btn.textContent = "Enviando...";
+    document.getElementById("formErro").style.display = "none";
+
+    function done(){
+      if (typeof window.fbq === "function"){
+        fbq("track","Lead"); fbq("track","CompleteRegistration");
+        fbq("trackCustom","HDOM_Diagnostico_Finalizado",{perfil:payload.perfil});
+      }
+      window.dataLayer.push({event:"generate_lead", perfil:payload.perfil, segmento:payload.segmento, lead_temperatura:payload.lead_temperatura});
+      window.dataLayer.push({event:"HDOM_Diagnostico_Finalizado"});
+      go(8);
+    }
+    function fail(){
+      btn.disabled = false; btn.textContent = "Receber Diagnóstico";
+      document.getElementById("formErro").style.display = "block";
+    }
+
+    if (!window.HDOM.webhookUrl){ done(); return; }   // sem webhook configurado: segue o fluxo
+    fetch(window.HDOM.webhookUrl, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(payload)})
+      .then(function(r){ r.ok ? done() : fail(); })
+      .catch(fail);
+  });
+
+  /* ---------- Redirecionamento ---------- */
+  document.getElementById("goSite").addEventListener("click", function(e){
+    e.preventDefault();
+    track("redirect_hdom", null, {}); 
+    window.dataLayer.push({event:"diagnostico_redirect_site"});
+    setTimeout(function(){ location.href = window.HDOM.siteUrl; }, 200);
+  });
+
+  /* ---------- Page view, view content e scroll ---------- */
+  track("page_view","PageView",{page:"diagnostico"});
+  track("view_content","ViewContent",{content_name:"Diagnóstico Executivo"});
+  var s50=false,s90=false;
+  window.addEventListener("scroll", function(){
+    var h = document.documentElement, p = (h.scrollTop+innerHeight)/h.scrollHeight*100;
+    if(!s50 && p>=50){ s50=true; track("scroll_50","Scroll50",{},true); }
+    if(!s90 && p>=90){ s90=true; track("scroll_90","Scroll90",{},true); }
+  }, {passive:true});
+})();
+</script>
+</body>
+</html>
